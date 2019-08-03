@@ -1,0 +1,5 @@
+# this macro will run the ACE simulation via run2.mac
+# over the following range of energies:
+# 0.5, 1, 10, 50, 500, 1000, 3000 GeV
+
+/control/foreach run2.mac E "0.5 1 10 50 500 1000 3000"
