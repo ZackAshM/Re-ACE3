@@ -16,18 +16,15 @@
   gROOT->SetBatch(kTRUE);
 
   // define type of runs taken
-  auto runType{static_cast<std::string>("nogap")};  // original, nogap, etc.
+  auto runType{static_cast<std::string>("")};  // original, nogap, etc.
   
   // directory containing data
   auto dataPath{"data/" + runType + "/"};
   
   // file counter dependent on energies
-  std::string energies[6] = {"05", "1", "10", "50", "500", "1000"}//, "3000"};
+  std::string energies[6] = {"05", "1", "10", "50", "500", "1000"};//, "3000"};
                            // 0.5, 1, 10, 50, 500, 1000, 3000 GeV
 
-  // time hists min and max
-  auto timeMax{0.};
-  auto timeMin{5000.};
 
   /* -------------------------------------- */
 
@@ -213,6 +210,11 @@
     TH1F *ht2 = (TH1F*)f->Get("h11"); 
     TH1F *ht3 = (TH1F*)f->Get("h12"); 
 
+
+    // time hists min and max
+    auto timeMin{ht1->FindFirstBinAbove() - 4};
+    auto timeMax{ht3->FindLastBinAbove(100)};
+    
     top_pad->cd();
     ht1->Scale(0.01);
     //ht1->SetMinimum();
@@ -220,7 +222,7 @@
     ht1->Draw("hist same bar");
     ht1->SetFillColor(kBlue-4);
     top_pad->SetLeftMargin(0.15); 
-    ht1->GetXaxis()->SetRangeUser(timeMin,timeMax);
+    ht1->GetXaxis()->SetRange(timeMin,timeMax);
     ht1->GetYaxis()->SetTitleOffset(1.6); 
     ht1->GetYaxis()->SetTitle("e+e- dN/dt, hits per ps");
     ht1->GetXaxis()->SetTitle("time, picoseconds from local reference");
@@ -234,7 +236,7 @@
     ht2->Draw("hist same bar");
     ht2->SetFillColor(kBlue-4);
     mid_pad->SetLeftMargin(0.15); 
-    ht2->GetXaxis()->SetRangeUser(timeMin,timeMax);
+    ht2->GetXaxis()->SetRange(timeMin,timeMax);
     ht2->GetYaxis()->SetTitleOffset(1.6); 
     ht2->GetYaxis()->SetTitle("e+e- dN/dt, hits per ps");
     ht2->GetXaxis()->SetTitle("time, picoseconds from local reference");    
@@ -248,7 +250,7 @@
     ht3->Draw("hist same bar");
     ht3->SetFillColor(kBlue-4);
     bot_pad->SetLeftMargin(0.15); 
-    ht3->GetXaxis()->SetRangeUser(timeMin,timeMax);
+    ht3->GetXaxis()->SetRange(timeMin,timeMax);
     ht3->GetYaxis()->SetTitleOffset(1.6); 
     ht3->GetYaxis()->SetTitle("e+e- dN/dt, hits per ps");
     ht3->GetXaxis()->SetTitle("time, picoseconds from local reference");    
