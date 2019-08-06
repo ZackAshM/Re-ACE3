@@ -47,7 +47,7 @@ B4PrimaryGeneratorAction::B4PrimaryGeneratorAction()
  : G4VUserPrimaryGeneratorAction(),
    fParticleGun(0)
 {
-  G4int nofParticles = 1;
+  G4int nofParticles = 100;
   fParticleGun = new G4ParticleGun(nofParticles);
 
   // default particle kinematic
